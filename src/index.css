@@ -1,0 +1,12 @@
+.Nav li a {
+    color: #fff;
+    text-decoration: none;
+  }
+
+.Nav li:hover, 
+.Nav li:focus, 
+.Nav li:hover a, 
+.Nav li:focus a  {
+  background-color: #eee;
+  color: #333;
+}
