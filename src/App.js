@@ -8,10 +8,72 @@ import InfoSupplier from './suppliers/InfoSupplier';
 import Missing from './Missing';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import api from './api/suppliers';
+import LoginPage from './auth0';
 
 function App() {
+  const [suppliers, setSuppliers] = useState([]);
+  const [supplierName, setSupplierName] = useState('');
+  const [supplierEmail, setSupplierEmail] = useState('');
+  const [supplierPhoneNumber, setSupplierPhoneNumber] = useState('');
+  const [supplierCountry, setSupplierCountry] = useState('');
+  const [supplierPlace, setSupplierPlace] = useState('');
+  const [supplierPostalCode, setSupplierPostalCode] = useState('');
+  const [supplierHouseNumber, setSupplierHouseNumber] = useState('');
+  const [supplierKVKnumber, setSupplierKVKnumber] = useState('');
+  const history = useHistory();
+
+  useEffect(() => {
+    const fetchSuppliers = async () => {
+      try {
+        const repsonse = await api.get('/suppliers');
+        setSuppliers(repsonse.data);
+      }catch(err){
+        if(err.repsonse){
+          console.log(err.repsonse.data);
+          console.log(err.repsonse.status);
+          console.log(err.repsonse.headers);
+        }else{
+          console.log(`Error: ${err.message}`)
+        }
+      }
+    }
+
+    fetchSuppliers();
+  }, [])
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const newSupplier = { 
+      name: supplierName,
+      email: supplierEmail, 
+      phoneNumber: supplierPhoneNumber,
+      country: supplierCountry,
+      place: supplierPlace,
+      postalCode: supplierPostalCode,
+      houseNumber: supplierHouseNumber,
+      KVKnumber: supplierKVKnumber
+    }
+    try{
+      const response = await api.post('/suppliers', newSupplier);
+      const allSuppliers = [...suppliers, newSupplier];
+      setSuppliers(allSuppliers)
+      setSupplierName('');
+      setSupplierEmail('');
+      setSupplierPhoneNumber('');
+      setSupplierCountry('');
+      setSupplierPlace('');
+      setSupplierPostalCode('');
+      setSupplierHouseNumber('');
+      setSupplierKVKnumber('');
+      history.pushState('/'); 
+    }catch(err){
+      console.log(`Error: ${err.message}`)
+    }
+  }
+
   return (
-    <div className="App">
+    <div className="App d-flex flex-column">
       <Header />
       <Nav />
       <Switch>
@@ -19,10 +81,31 @@ function App() {
           <Home />
         </Route>
         <Route path="/suppliers/create">
-          <NewSupplier />
+          <NewSupplier
+            handleSubmit={handleSubmit}
+            supplierName = {supplierName}
+            setSupplierName = {setSupplierName}
+            supplierEmail = {supplierEmail} 
+            setSupplierEmail = {setSupplierEmail}
+            supplierPhoneNumber = {supplierPhoneNumber}
+            setSupplierPhoneNumber = {setSupplierPhoneNumber}
+            supplierCountry = {supplierCountry}
+            setSupplierCountry = {setSupplierCountry}
+            supplierPlace = {supplierPlace}
+            setSupplierPlace = {setSupplierPlace}
+            supplierPostalCode = {supplierPostalCode}
+            setSupplierPostalCode = {setSupplierPostalCode}
+            supplierHouseNumber = {supplierHouseNumber}
+            setSupplierHouseNumber = {setSupplierHouseNumber}
+            supplierKVKnumber = {supplierKVKnumber}
+            setSupplierKVKnumber = {setSupplierKVKnumber}
+          />
         </Route>
         <Route path="/suppliers/:id">
           <InfoSupplier />
+        </Route>
+        <Route path="/login">
+          <LoginPage />
         </Route>
         <Route path="*" component={Missing} />
       </Switch>
