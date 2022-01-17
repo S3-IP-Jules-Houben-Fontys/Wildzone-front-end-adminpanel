@@ -9,9 +9,15 @@ import Missing from './Missing';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import api from './api/suppliers';
-import LoginPage from './auth0';
+import LoginPage from './auth0/LoginPage';
+import PrivateRoute from './auth0/private-route';
+import Loading from './auth0/components/loading';
+import { useAuth0} from '@auth0/auth0-react';
+import Profile from './auth0/profile';
 
 function App() {
+
+  const { isLoading } = useAuth0();
   const [suppliers, setSuppliers] = useState([]);
   const [supplierName, setSupplierName] = useState('');
   const [supplierEmail, setSupplierEmail] = useState('');
@@ -71,47 +77,46 @@ function App() {
       console.log(`Error: ${err.message}`)
     }
   }
-
-  return (
-    <div className="App d-flex flex-column">
-      <Header />
-      <Nav />
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/suppliers/create">
-          <NewSupplier
-            handleSubmit={handleSubmit}
-            supplierName = {supplierName}
-            setSupplierName = {setSupplierName}
-            supplierEmail = {supplierEmail} 
-            setSupplierEmail = {setSupplierEmail}
-            supplierPhoneNumber = {supplierPhoneNumber}
-            setSupplierPhoneNumber = {setSupplierPhoneNumber}
-            supplierCountry = {supplierCountry}
-            setSupplierCountry = {setSupplierCountry}
-            supplierPlace = {supplierPlace}
-            setSupplierPlace = {setSupplierPlace}
-            supplierPostalCode = {supplierPostalCode}
-            setSupplierPostalCode = {setSupplierPostalCode}
-            supplierHouseNumber = {supplierHouseNumber}
-            setSupplierHouseNumber = {setSupplierHouseNumber}
-            supplierKVKnumber = {supplierKVKnumber}
-            setSupplierKVKnumber = {setSupplierKVKnumber}
-          />
-        </Route>
-        <Route path="/suppliers/:id">
-          <InfoSupplier />
-        </Route>
-        <Route path="/login">
-          <LoginPage />
-        </Route>
-        <Route path="*" component={Missing} />
-      </Switch>
-      <Footer />
-    </div>
-  );
+  if(isLoading) {
+    return <Loading />
+  }else{
+    return (
+      <div className="App d-flex flex-column">
+        <Header />
+        <Nav />
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/suppliers/create">
+            <NewSupplier
+              handleSubmit={handleSubmit}
+              supplierName = {supplierName}
+              setSupplierName = {setSupplierName}
+              supplierEmail = {supplierEmail} 
+              setSupplierEmail = {setSupplierEmail}
+              supplierPhoneNumber = {supplierPhoneNumber}
+              setSupplierPhoneNumber = {setSupplierPhoneNumber}
+              supplierCountry = {supplierCountry}
+              setSupplierCountry = {setSupplierCountry}
+              supplierPlace = {supplierPlace}
+              setSupplierPlace = {setSupplierPlace}
+              supplierPostalCode = {supplierPostalCode}
+              setSupplierPostalCode = {setSupplierPostalCode}
+              supplierHouseNumber = {supplierHouseNumber}
+              setSupplierHouseNumber = {setSupplierHouseNumber}
+              supplierKVKnumber = {supplierKVKnumber}
+              setSupplierKVKnumber = {setSupplierKVKnumber}
+            />
+          </Route>
+          <PrivateRoute path="/suppliers/:id" component={InfoSupplier} />
+          <PrivateRoute path="/profile" component={Profile} />
+          <Route path="*" component={Missing} />
+        </Switch>
+        <Footer />
+      </div>
+    );
+  }
 }
 
 export default App;
