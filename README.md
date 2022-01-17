@@ -6,7 +6,7 @@ In the C2 diagram below you can see the overview of this application.
 
 ![Wildzone-C2 Container diagram drawio (3)](https://user-images.githubusercontent.com/73841047/149792794-d9613d19-3aaa-4673-95ae-ec1a562c2e7c.png)
 
-For a detailed explanation of the choices made, I refer you to <a href="https://github.com/S3-IP-Jules-Houben-Fontys/Wildzone-documentation">the Wildozne documentation (in Dutch)</a>
+For a detailed explanation of the choices made, I refer you to <a href="https://github.com/S3-IP-Jules-Houben-Fontys/Wildzone-documentation">the Wildzone documentation (in Dutch)</a>
 
 ## Getting started
 
