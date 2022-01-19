@@ -17,7 +17,7 @@ import Profile from './auth0/profile';
 
 function App() {
 
-  const { isLoading } = useAuth0();
+  const { isLoading, error } = useAuth0();
   const [suppliers, setSuppliers] = useState([]);
   const [supplierName, setSupplierName] = useState('');
   const [supplierEmail, setSupplierEmail] = useState('');
@@ -79,6 +79,8 @@ function App() {
   }
   if(isLoading) {
     return <Loading />
+  }else if (error) {
+    return <div>Error: {error.message} </div>
   }else{
     return (
       <div className="App d-flex flex-column">
