@@ -1,70 +1,67 @@
-# Getting Started with Create React App
+# Wildzone Front-end Adminpanel
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the front-end adminpanel repository for the Wildzone webshop & adminpanel project.
 
-## Available Scripts
+In the C2 diagram below you can see the overview of this application.
 
-In the project directory, you can run:
+![Wildzone-C2 Container diagram drawio (3)](https://user-images.githubusercontent.com/73841047/149792794-d9613d19-3aaa-4673-95ae-ec1a562c2e7c.png)
 
-### `npm start`
+For a detailed explanation of the choices made, I refer you to <a href="https://github.com/S3-IP-Jules-Houben-Fontys/Wildzone-documentation">the Wildzone documentation (in Dutch)</a>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Getting started
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+There are two ways to run this front-end project:
 
-### `npm test`
+<ul>
+    <li><a href="#run">How to run front-end locally</a></li>
+    <li><a href="#docker">How to run front-end in Docker</a></li>
+</ul>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<h2 id="run">How to run front-end locally</h2>
 
-### `npm run build`
+Make sure you have cloned this repository, depending on what branch you pull, you might have varying experiences. Check the section <a href="#branches">branches</a> to see which branch suits your purpose.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<ol>
+<li>Go to ther root of the project you just pulled and execute the following command:</li>
+  
+`npm i`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+This will install all the required packages to run this front-end.
+  
+<li>Clone the sample.env and change the name to be just '.env'. Fill in the empty values with your preferred settings.</li>
+<li>Make sure you have <a href="https://www.docker.com/get-started">Docker installed</a> and running on your machine.</li>
+<li>Start up all the services which are being used in the front-end with the following command in the root folder:</li>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`docker-compose up` <br>
+You can also run this in detached mode if you want to re-use the console:<br>
+`docker-compose up -d`
 
-### `npm run eject`
+Note: it is not required to start these services, but parts of the front-end might break if not all services are running 
+  
+<li>Finally start the front-end with the following command:</li>
+  
+`npm start` 
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+  The application will start at <a href="http://localhost:3000/">http://localhost:3000/</a>
+ 
+</ol>
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<h2 id="docker">How to run front-end in Docker</h2>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+This is only possible if the application is working and pushed to Docker hub. You can test this yourself by checking out <a href="https://hub.docker.com/repository/docker/jjuless/wildzone-front-end-adminpanel">jjuless' Docker Hub</a> to see if there is an image or check out the badge just below the subtitle. If the badge states 'passing', then you can use this method.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+**Not available yet**
 
-## Learn More
+<h2 id="tests">Tests</h2>
+To test wether the application is working correctly or not, integration tests get run when pushed to development and main. The tests can also be run when the front-end is <a href="#run">run locally</a>. This can be done with the following command:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+`npm test`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+<h2 id="branches">Branhces</h2>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+![Wildzone-Software Branches drawio](https://user-images.githubusercontent.com/73841047/143588680-91d9ee14-e0ad-4790-bcad-021cdfcdaf89.png)
 
-### Analyzing the Bundle Size
+The main branch is protected, so you can only create a pull request for it, which when approved merges with main. New finished code gets merged into development, also with a pull request but development is not protected. On the branch userstory or to be more precise "US-XX" where XX is the number/id of the userstory the new feature gets developed. 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Commits need to be descriptive to get a quick overview what has been added. When needed the description can add further information about the commit. 
